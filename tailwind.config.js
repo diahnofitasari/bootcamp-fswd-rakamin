@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+  /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -11,8 +11,9 @@ export default {
     },
     extend: {
       colors : {
-        primary: '#14b8a6',
+        primary: '#695aa6',
         dark: '#0f172a',
+        secondary:'#64748b', 
       },
       screens:{
         '2xl':'1320px',
