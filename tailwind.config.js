@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     container: {
@@ -11,7 +12,7 @@ export default {
     },
     extend: {
       colors : {
-        primary: '#695aa6',
+        primary: '#1e40af',
         dark: '#0f172a',
         secondary:'#64748b', 
       },
@@ -20,5 +21,8 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line no-undef
+    require('flowbite/plugin')
+  ],
 }
