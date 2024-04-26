@@ -1,0 +1,21 @@
+/* Contoh CSS untuk menyesuaikan tampilan */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.tab-pane {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#resume {
+    margin-top: 20px;
+    font-style: italic;
+}
