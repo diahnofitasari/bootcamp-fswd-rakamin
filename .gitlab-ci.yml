@@ -1,0 +1,27 @@
+image: node:14
+
+services:
+  - postgres:13
+
+variables:
+  POSTGRES_DB: todo_db
+  POSTGRES_USER: user
+  POSTGRES_PASSWORD: password
+  DB_HOST: postgres
+
+stages:
+  - test
+
+test:
+  stage: test
+  before_script:
+    - npm install
+    - apk add --no-cache bash
+    - >-
+      until psql
+      -h $DB_HOST
+      -U $POSTGRES_USER
+      -c "SELECT 1" $POSTGRES_DB;
+      do sleep 1; done
+  script:
+    - npx jest

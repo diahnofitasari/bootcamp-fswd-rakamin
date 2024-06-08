@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: express_todo_hw11
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 13juni1994
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      DB_NAME: express_todo_hw11
+      DB_USER: postgres
+      DB_PASS: 13juni1994
+      DB_HOST: db
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    command: >
+      sh -c "npx sequelize-cli db:migrate && node src/server.js"
+
+volumes:
+  db_data:
