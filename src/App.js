@@ -1,14 +1,28 @@
-
 import * as React from 'react';
+import './App.css';
 
 function Board() {
-  const squares = Array(9).fill(null);
-  function selectSquare(square) {
+  const [squares, setSquares] = React.useState(Array(9).fill(null));
+  const [winner, setWinner] = React.useState(null);
 
+  function selectSquare(square) {
+    if (squares[square] || calculateWinner(squares)) return;
+    const squaresCopy = [...squares];
+    squaresCopy[square] = calculateNextValue(squares);
+    setSquares(squaresCopy);
+    const winner = calculateWinner(squaresCopy);
+    if (winner) {
+      setWinner(winner);
+    }
   }
 
   function restart() {
+    setSquares(Array(9).fill(null));
+    setWinner(null);
   }
+
+  const nextValue = calculateNextValue(squares);
+  const status = calculateStatus(winner, squares, nextValue);
 
   function renderSquare(i) {
     return (
@@ -20,40 +34,46 @@ function Board() {
 
   return (
     <div>
-      <div >STATUS</div>
-      <div >
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
+      <div className="status">{status}</div>
+      <div className="board">
+        {Array(9).fill(null).map((_, i) => (
+          <div key={i}>{renderSquare(i)}</div>
+        ))}
       </div>
-      <div >
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div >
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-      <button onClick={restart}>
-        restart
+      <button className="reset-btn" onClick={restart}>
+        Restart
       </button>
+      <div className="players">
+        <div className="player">
+          <div>Player 1</div>
+          <div>X</div>
+        </div>
+        <div className="player">
+          <div>Player 2</div>
+          <div>O</div>
+        </div>
+      </div>
+      {winner && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>{winner} Wins!</h2>
+            <button className="reset-btn" onClick={restart}>Play Again</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 function Game() {
   return (
-    <div >
-      <div >
-        <Board />
-      </div>
+    <div>
+      <h1 className="title">Playing Tic Tac Toe</h1>
+      <Board />
     </div>
   );
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateStatus(winner, squares, nextValue) {
   return winner
     ? `Winner: ${winner}`
@@ -62,12 +82,10 @@ function calculateStatus(winner, squares, nextValue) {
       : `Next player: ${nextValue}`;
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateNextValue(squares) {
   return squares.filter(Boolean).length % 2 === 0 ? 'X' : 'O';
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
