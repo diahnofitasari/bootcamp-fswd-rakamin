@@ -1,0 +1,19 @@
+{
+    "name": "homework-2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "backend/index.js",
+    "scripts": {
+      "start": "node backend/index.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "multer": "^1.4.2",
+      "cors": "^2.8.5",
+      "path": "^0.12.7",
+      "jsonwebtoken": "^8.5.1",
+      "bcrypt": "^5.0.1",
+      "@prisma/client": "^2.30.2"
+    }
+  }
+  
